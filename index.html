@@ -1,1 +1,106 @@
-<p>some text<p>
+<html lang="en">
+  
+<script> 
+      Vue.component('my-item', {
+          props: ['itemdata', 'row'],
+          template: '#item-template',
+          data: function () {
+              return {
+              selected: this.itemdata
+              }
+          },
+          methods: {
+              remove() {
+                  this.$emit('remove');
+              },
+          }
+      }),
+
+      new Vue({
+          el: "#app",
+          data: {
+              rows: [],
+            itemList: [
+            { quantity: '0'},
+            { quantity: '1'},
+            { quantity: '2'},
+            { quantity: '3'},
+            { quantity: '4'},
+            { quantity: '5'},
+            { quantity: '6'},
+            { quantity: '7'},
+            { quantity: '8'},
+            { quantity: '9'},
+            { quantity: '10'},
+            { quantity: '11'},
+            { quantity: '12'},
+            { quantity: '13'},
+            { quantity: '14'},
+            { quantity: '15'},
+            { quantity: '16'},
+            { quantity: '17'},
+            { quantity: '18'},
+            { quantity: '19'},
+            { quantity: '20'},
+
+              ]
+          },
+
+          methods: {
+              addRow(){
+                 this.rows.push({quantity: '', seen: false});
+              },
+              removeRow(index){
+                 this.rows.splice(index,1);
+              },
+          }
+      })
+  
+  
+  <script>
+  
+  
+  
+
+<head>
+    <meta charset="utf-8">
+    <title>Row Component</title>
+</head>
+
+<body>
+    <div id="app">
+    <h3>
+    Battle Manager
+    </h3>
+            <my-item v-for="(row, index) in rows"
+                    :itemdata="itemList"
+                    :row="row"                     
+                    v-on:remove="removeRow(index)">
+            </my-item>
+        <div>
+            <button @click="addRow"> Add Creature </button>
+        </div>
+        
+    </div>
+
+<template id="item-template">
+    <div>
+        <select required v-model="row.quantity">
+            <option value = "" selected disabled hidden>Init</option>
+            <option v-for="item in itemdata"  :value="item"> {{ item.quantity }} </option>
+        </select>
+        <input type="text" placeholder="Creature" v-model="row.description">
+        
+        <input type='number' class = 'hp' placeholder = "HP">
+          Looted? <input type = "checkbox">
+        
+        <button v-on:click= "row.seen = !row.seen"> X </button>
+        <button v-if="row.seen" v-on:click="remove"> Are You Sure? </button>
+        
+    </div>
+</template>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.6/vue.js"></script>
+
+</body>
+</html>
