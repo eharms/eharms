@@ -43,7 +43,63 @@
     </div>
 </template>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.6/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.6/vue.js">
+  Vue.component('my-item', {
+    props: ['itemdata', 'row'],
+    template: '#item-template',
+    data: function () {
+        return {
+        selected: this.itemdata
+        }
+    },
+    methods: {
+        remove() {
+            this.$emit('remove');
+        },
+    }
+}),
+
+new Vue({
+    el: "#app",
+    data: {
+        rows: [],
+    	itemList: [
+			{ quantity: '0'},
+			{ quantity: '1'},
+			{ quantity: '2'},
+			{ quantity: '3'},
+      { quantity: '4'},
+      { quantity: '5'},
+      { quantity: '6'},
+      { quantity: '7'},
+      { quantity: '8'},
+      { quantity: '9'},
+      { quantity: '10'},
+      { quantity: '11'},
+      { quantity: '12'},
+      { quantity: '13'},
+      { quantity: '14'},
+      { quantity: '15'},
+      { quantity: '16'},
+      { quantity: '17'},
+      { quantity: '18'},
+      { quantity: '19'},
+      { quantity: '20'},
+      
+        ]
+    },
+
+    methods: {
+        addRow(){
+           this.rows.push({quantity: '', seen: false});
+        },
+        removeRow(index){
+           this.rows.splice(index,1);
+        },
+    }
+})
+  
+  </script>
 
 </body>
 </html>
